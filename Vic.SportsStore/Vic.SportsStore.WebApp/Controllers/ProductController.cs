@@ -20,7 +20,7 @@ namespace Vic.SportsStore.WebApp.Controllers
             {
                 Products = ProductsRepository
                 .Products
-                .Where(p => category == null || p.Category == category)
+                .Where(p => category == null || p.Category == category) 
                 .OrderBy(p => p.ProductId)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize),
@@ -28,7 +28,10 @@ namespace Vic.SportsStore.WebApp.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = ProductsRepository.Products.Count()
+                    TotalItems = ProductsRepository
+                    .Products
+                    .Where(p => category == null || p.Category == category)
+                    .Count()
                 },
                 CurrentCategory = category
             }; return View(model);
